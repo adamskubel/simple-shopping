@@ -1,0 +1,10 @@
+.git
+target
+src/main/webapp/node_modules
+src/main/webapp/*.js
+src/main/webapp/*.map
+src/main/webapp/app/*.js
+src/main/webapp/app/*.map
+src/main/webapp/img
+src/main/webapp/typings
+src/main/webapp/.editorconfig

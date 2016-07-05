@@ -1,0 +1,10 @@
+<h2>Products</h2>
+<ul class="products">
+  <li *ngFor="let product of products" (click)="onSelect(product)" >
+    <span class="product-element">
+      <span class="badge">{{product.name}}</span> {{product.price}}
+    </span>
+    <button class="add-button" (click)="addProductToCart(product, $event)">Add to cart</button>
+  </li>
+</ul>
+<div class="error" *ngIf="error">{{error}}</div>
