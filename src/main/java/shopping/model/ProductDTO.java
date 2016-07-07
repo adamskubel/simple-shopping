@@ -7,6 +7,11 @@ public class ProductDTO
 	//Price of the product in cents
 	private long price;
 	private String productId;
+	
+	public ProductDTO()
+	{
+		
+	}
 
 	public ProductDTO(String productId, String name, String imageId, long price) {
 		this.productId = productId;

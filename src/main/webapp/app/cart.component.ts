@@ -3,20 +3,28 @@ import { Router }            from '@angular/router';
 
 import { Product }                from './product';
 import { CartService } from './cart.service';
+import { Invoice } from './invoice';
+import { InvoiceService } from './invoice.service';
+import { CartInfo } from './cart.service';
+import { FixedCurrencyPipe } from './fixed-currency.pipe';
 
 @Component({
   selector: 'my-cart',
   templateUrl: 'app/cart.component.html',
-  styleUrls:  ['app/cart.component.css']
+  providers: [],
+  pipes: [FixedCurrencyPipe]
 })
 
 export class CartComponent implements OnInit {
   products: Product[];
+  invoice: Invoice;
   error: any;
+  cartInfo:CartInfo;
 
   constructor(
     private router: Router,
-    private cartService: CartService) {
+    private cartService: CartService,
+    private invoiceService: InvoiceService) {
     }
 
   getProducts() {
@@ -26,19 +34,42 @@ export class CartComponent implements OnInit {
   removeProduct(product: Product) {
 
       this.cartService.delete(product);
-      this.getProducts();
+
+      for (var index = 0;index < this.products.length;index++){
+        if (this.products[index].productId == product.productId)
+          break;
+      }
+      if (index > -1) {
+           this.products.splice(index, 1);
+      }
   }
 
-  close() {
+  emptyCart(){
+    this.cartService.empty();
+  }
 
+  updateProductQuantity(product:Product, newQuantity:number){
+    if (newQuantity > 0)
+      product.quantity = +newQuantity;
+
+    this.cartService.update();
   }
 
   ngOnInit() {
+    this.cartInfo = this.cartService.cartInfo;
     this.getProducts();
   }
 
-  checkout(){
+  extractData(data:Invoice) {
 
+  }
+
+  checkout(){
+    this.cartService.checkout(this.products)
+    .then(invoice => {
+      this.invoiceService.storeInvoice(invoice);
+    this.router.navigate(['/invoice']);})
+    .catch(error => this.error = error);
   }
 
 

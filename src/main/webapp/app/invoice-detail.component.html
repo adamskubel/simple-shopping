@@ -1,0 +1,20 @@
+<div class="container-fluid">
+<h3>Your Invoice</h3>
+<div class="row">
+  <div class="col-md-2">Invoice Number:{{invoice.invoiceId}}</div>
+</div>
+  <div *ngFor="let product of invoice.itemsBought" class="row">
+  <div class="col-md-1">
+      <a href="#" class="thumbnail">
+        <img src="img/{{product.imageId}}" class="img-rounded" style="max-height: 120px; overflow:hidden"/>
+      </a>
+  </div>
+  <div class="col-md-2">{{product.name}}</div>
+  <div class="col-md-1"><price-display [price]=product.price></price-display></div>
+  <div class="col-md-1"><label>Quantity:</label>{{product.quantity}}</div>
+</div>
+<div>
+  <label>Total: </label>{{invoice.totalCost | fixedCurrency }}
+</div>
+<div class="error" *ngIf="error">{{error}}</div>
+</div>

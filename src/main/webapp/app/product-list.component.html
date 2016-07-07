@@ -1,10 +1,27 @@
 <h2>Products</h2>
-<ul class="products">
-  <li *ngFor="let product of products" (click)="onSelect(product)" >
-    <span class="product-element">
-      <span class="badge">{{product.name}}</span> {{product.price}}
-    </span>
-    <button class="add-button" (click)="addProductToCart(product, $event)">Add to cart</button>
-  </li>
-</ul>
+<div class="container-fluid">
+  <div class="row">
+    <div *ngFor="let product of products" (click)="onSelect(product)" class="col-md-4 col-xs-5">
+      <div class="col-md-7">
+          <a href="#" class="thumbnail">
+            <img src="img/{{product.imageId}}" class="img-rounded" style="max-height: 160px; overflow:hidden"/>
+          </a>
+      </div>
+      <div class="col-md-4">
+        <div class="row">{{product.name}}</div>
+        <div class="row">{{product.price | fixedCurrency }}</div>
+        <div class="row">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Quantity</span>
+            <input name="quantity" type="text" class="form-control" aria-describedby="basic-addon1" value="1" style="width:50px" #quantity>
+            <!-- <span class="input-group-btn">
+             </span> -->
+          </div>
+        </div>
+                   <!-- <button type="button" class="btn btn-primary"  (click)="addProductToCart(product,quantity,$event)">Add to cart</button> -->
+        <div class="row"><button type="button" class="btn btn-primary"  (click)="addProductToCart(product,quantity.value,$event)">Add to cart</button></div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="error" *ngIf="error">{{error}}</div>

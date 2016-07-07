@@ -13,7 +13,6 @@ export class StoreFrontService {
   constructor(private http: Http) { }
 
   getProducts(): Promise<Product[]> {
-    console.log("Fetching products!");
     return this.http.get(this.storeFrontUrl)
                .toPromise()
                .then(response => response.json())

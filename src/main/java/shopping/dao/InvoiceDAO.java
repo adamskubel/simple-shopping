@@ -3,8 +3,10 @@ package shopping.dao;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
+import org.apache.tomcat.util.buf.HexUtils;
 import org.bson.Document;
 import org.springframework.stereotype.Repository;
 
@@ -29,30 +31,22 @@ public class InvoiceDAO extends BaseDAO<InvoiceDTO>
 	public String getNextInvoiceId()
 	{
 		MongoDatabase db = DataSourceManager.getInstance().getDatabase();
-		MongoCollection<Document> coll = db.getCollection(CollectionName);
-		MongoCursor<Document> cursor = coll.find().iterator();
-		
-		long count = 0;
-		while (cursor.hasNext()) {
-			count++;
-		}
-		
-		return hashInvoiceId(count);
+		MongoCollection<Document> coll = db.getCollection(CollectionName);		
+		return hashInvoiceId(coll.count());
 	}
 
 	//Simple hashing to obfuscate our order statistics
+	//SHA-256 then take least significant quarter the output
 	private String hashInvoiceId(long id)
 	{
 		MessageDigest digest;
 		try {
 			digest = java.security.MessageDigest.getInstance("SHA-256");
 		} catch (NoSuchAlgorithmException e) {
-			System.err.println(e.getMessage());
-			//Fallback for dev testing only!!!
-			return String.valueOf(Long.reverseBytes(id));
+			throw new RuntimeException(e);			
 		}
-		digest.update(String.valueOf(id).getBytes());		
-		return new String(digest.digest());
+		digest.update(String.valueOf(id).getBytes());
+		return HexUtils.toHexString(digest.digest()).substring(48);
 	}
 	
 	@Override
