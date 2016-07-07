@@ -1,8 +1,6 @@
 <div class="container-fluid">
-<h3>Your Invoice</h3>
-<div class="row">
-  <div class="col-md-2">Invoice Number:{{invoice.invoiceId}}</div>
-</div>
+<h4>Checkout Successful!</h4>
+<h3>Invoice Number:{{invoice.invoiceId | uppercase}}</h3>
   <div *ngFor="let product of invoice.itemsBought" class="row">
   <div class="col-md-1">
       <a href="#" class="thumbnail">
@@ -10,11 +8,12 @@
       </a>
   </div>
   <div class="col-md-2">{{product.name}}</div>
-  <div class="col-md-1"><price-display [price]=product.price></price-display></div>
-  <div class="col-md-1"><label>Quantity:</label>{{product.quantity}}</div>
+  <div class="col-md-1"><label>Item price:&nbsp;</label>{{product.price | fixedCurrency}}</div>
+  <div class="col-md-2"><label>Quantity:&nbsp;</label>{{product.quantity}}</div>
+  <div class="col-md-2"><label>Item total:&nbsp;</label>{{product.itemTotal | fixedCurrency}}</div>
 </div>
 <div>
-  <label>Total: </label>{{invoice.totalCost | fixedCurrency }}
+  <label>Amount Due:&nbsp;</label>{{invoice.totalCost | fixedCurrency }}
 </div>
 <div class="error" *ngIf="error">{{error}}</div>
 </div>

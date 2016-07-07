@@ -20,9 +20,9 @@ public class InvoiceDTO
 	{
 		long totalCost = 0;
 		for (ProductDTO product : products){
-			totalCost += product.getPrice();
+			product.setItemTotal(product.getPrice() * product.getQuantity());
+			totalCost += product.getItemTotal();
 		}
-		
 		return new InvoiceDTO(invoiceId, products, totalCost);
 	}
 	

@@ -1,6 +1,5 @@
 package shopping;
 
-import java.io.File;
 import java.nio.file.DirectoryStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -15,19 +14,18 @@ import shopping.util.Config;
 
 public class TestUtil
 {
-//	@Test
+	@Test
 	public void generateTestData() throws Exception
 	{		
-		//MongoCollection<Document> collection = DataSourceManager.getInstance().getDatabase().getCollection("products");
-		//collection.insertOne(ProductDAO.);
 		ProductDAO dao = new ProductDAO();
 		Path dir = FileSystems.getDefault().getPath("src/main/webapp/img");
 		Config.init("");
 		try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) 
 		{
+			int i=0;
 			for (Path entry: stream) {
 				String id = entry.getFileName().toString();
-				dao.addProduct(new ProductDTO(id, "Name_"+id, id, new Random().nextInt(1000)));
+				dao.addProduct(new ProductDTO(id, "Product No." + i++, id, new Random().nextInt(1000)));
 			}
 		}
 	}

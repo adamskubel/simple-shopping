@@ -18,4 +18,10 @@ public class RedirectController
     {
     	return "redirect:index.html";
     }
+    
+    @RequestMapping("/invoice")
+    public String redirectInvoice()
+    {
+    	return "redirect:index.html";
+    }
 }

@@ -66,7 +66,7 @@ export class CartService  {
       this._cookieService.putObject(this.cookieKey,this.cartData);
   }
 
-  addProduct(product: Product, quantity:number) {
+  addProduct(product: Product, quantity:number = 1) {
 
     let cartData:Product[] = this.getProducts();
     if (!cartData)
@@ -74,8 +74,9 @@ export class CartService  {
 
     var index = this.indexOf(product);
 
-    if (index > 0) {
-      cartData[index].quantity++;
+    if (index != -1) {
+      console.log("incrementing quantity");
+      cartData[index].quantity += quantity;
     }
     else
     {

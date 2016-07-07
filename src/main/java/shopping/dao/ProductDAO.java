@@ -25,7 +25,7 @@ public class ProductDAO
 	static Document mapProduct(ProductDTO product)
 	{
 		Document dbObj = new Document();
-		dbObj.append("productId", product.getId());
+		dbObj.append("productId", product.getProductId());
 		dbObj.append("name", product.getName());
 		dbObj.append("price", product.getPrice());
 		dbObj.append("imageId", product.getImageId());
@@ -79,8 +79,7 @@ public class ProductDAO
 		MongoCursor<Document> cursor = coll.find().iterator();
 		try {
 			while (cursor.hasNext()) {
-//				if (--offset < 0)
-				System.out.println("Found product!");
+				if (--offset < 0)
 					list.add(mapDocument(cursor.next()));
 			}
 		} finally {

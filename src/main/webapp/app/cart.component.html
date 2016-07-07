@@ -8,10 +8,9 @@
         <img src="img/{{product.imageId}}" class="img-rounded" style="max-height: 120px; overflow:hidden"/>
       </a>
   </div>
-  <div class="col-md-2">{{product.name}}</div>
-  <div class="col-md-1"><price-display [price]=product.price></price-display></div>
-  <!-- <div class="col-md-1"><label>Quantity:</label><input [ngModel]="product.quantity" (ngModelChange)="updateProductQuantity(product,$event)"></input></div> -->
-  <div class="col-md-1">
+  <div class="col-md-1">{{product.name}}</div>
+  <div class="col-md-1">{{product.price | fixedCurrency}}</div>
+  <div class="col-md-2">
     <div class="input-group">
       <span class="input-group-addon" id="basic-addon1">Quantity</span>
       <input name="quantity" type="text" class="form-control" aria-describedby="basic-addon1" [ngModel]="product.quantity" (ngModelChange)="updateProductQuantity(product,$event)">

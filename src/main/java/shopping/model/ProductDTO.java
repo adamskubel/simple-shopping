@@ -7,6 +7,8 @@ public class ProductDTO
 	//Price of the product in cents
 	private long price;
 	private String productId;
+	private long quantity;
+	private long itemTotal;
 	
 	public ProductDTO()
 	{
@@ -18,6 +20,7 @@ public class ProductDTO
 		this.name = name;
 		this.imageId = imageId;
 		this.price = price;
+		this.quantity = 1;
 	}
 
 	public String getName()
@@ -50,14 +53,32 @@ public class ProductDTO
 		this.price = price;
 	}
 
-	public String getId()
+	public String getProductId()
 	{
 		return productId;
 	}
 
-	public void setId(String id)
+	public void setProductId(String id)
 	{
 		this.productId = id;
 	}
+
+	public long getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(long quantity) {
+		this.quantity = quantity;
+	}
+
+	public long getItemTotal() {
+		return itemTotal;
+	}
+
+	public void setItemTotal(long itemTotal) {
+		this.itemTotal = itemTotal;
+	}
+	
+	
 
 }
